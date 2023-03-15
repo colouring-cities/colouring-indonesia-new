@@ -5,12 +5,12 @@ export async function getLandUseGroupFromClass(classes: string[]): Promise<strin
 
     return (await db.many(
         `
-        SELECT DISTINCT parent.description
+        SELECT DISTINCT parent.description_en
         FROM reference_tables.buildings_landuse_group AS parent
         JOIN reference_tables.buildings_landuse_class AS child
         ON child.parent_group_id = parent.landuse_id
-        WHERE child.description IN ($1:csv)
-        ORDER BY parent.description`,
+        WHERE child.description_en IN ($1:csv)
+        ORDER BY parent.description_en`,
         [classes]
     )).map(x => x.description);
 }
@@ -20,12 +20,12 @@ export async function getLandUseOrderFromGroup(groups: string[]): Promise<string
 
     const orders = (await db.many(
         `
-        SELECT DISTINCT parent.description
+        SELECT DISTINCT parent.description_en
         FROM reference_tables.buildings_landuse_order AS parent
         JOIN reference_tables.buildings_landuse_group AS child
         ON child.parent_order_id = parent.landuse_id
-        WHERE child.description IN ($1:csv)
-        ORDER BY parent.description
+        WHERE child.description_en IN ($1:csv)
+        ORDER BY parent.description_en
         `,
         [groups]
     )).map(x => x.description);
@@ -41,7 +41,7 @@ export async function isLandUseGroupAllowed(group: string): Promise<boolean> {
     let groupResult = await db.oneOrNone(`
         SELECT landuse_id
         FROM reference_tables.buildings_landuse_group
-        WHERE description = $1
+        WHERE description_en = $1
         `, [group]
     );
 

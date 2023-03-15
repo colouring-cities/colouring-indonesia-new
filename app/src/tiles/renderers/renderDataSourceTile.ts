@@ -16,7 +16,7 @@ const DATASOURCE_CONFIG = {
     'user': process.env.PGUSER,
     'password': process.env.PGPASSWORD,
     'port': process.env.PGPORT,
-    'extent': '-20005048.4188,-9039211.13765,19907487.2779,17096598.5401',
+    'extent': '11876315, -710850.125, 11908211, -679159.0625',
     'srid': 3857,
     'type': 'postgis'
 };

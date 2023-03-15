@@ -8,7 +8,7 @@ export function CityBoundaryLayer() {
     const [boundaryGeojson, setBoundaryGeojson] = useState<GeoJsonObject>(null);
 
     useEffect(() => {
-        apiGet('/geometries/boundary-detailed.geojson')
+        apiGet('/geometries/jakarta_boundaries_4326.geojson')
             .then(data => setBoundaryGeojson(data as GeoJsonObject));
     }, []);
 

@@ -15,7 +15,8 @@ const Categories: React.FC<CategoriesProps> = (props) => (
     <ListWrapper className='data-category-list'>
         {categoriesOrder.map(category => {
             const {
-                name,
+                name_en,
+                name_id,
                 slug,
                 aboutUrl,
                 inactive = false
@@ -23,7 +24,8 @@ const Categories: React.FC<CategoriesProps> = (props) => (
 
             return <CategoryLink
                 key={category}
-                title={name}
+                title_en={name_en}
+                title_id={name_id}
                 slug={slug}
                 help={aboutUrl}
                 inactive={inactive}
