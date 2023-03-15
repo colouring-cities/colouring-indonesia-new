@@ -2,6 +2,7 @@ import React from 'react';
 
 import { BaseDataEntryProps } from '../data-entry';
 import { DataTitleCopyable } from '../data-title';
+import { useTranslation } from "react-i18next";
 
 interface ToggleButtonProps {
     value: string;
@@ -48,9 +49,10 @@ const ClearButton = ({
     onClick,
     disabled
 }) => {
+    const { t } = useTranslation();
     return <div className="btn-group btn-group-toggle">
         <label>
-        <button type="button" className="btn btn-outline-warning" onClick={onClick} disabled={disabled}>Clear</button>
+        <button type="button" className="btn btn-outline-warning" onClick={onClick} disabled={disabled}>{t("clear")}</button>
         </label>
         </div>
 }
@@ -72,7 +74,7 @@ export const LogicalDataEntry: React.FC<LogicalDataEntryProps> = (props) => {
     }
 
     const isDisabled = props.mode === 'view' || props.disabled;
-
+    const { t } = useTranslation();
     return (
         <>
             <DataTitleCopyable
@@ -90,7 +92,7 @@ export const LogicalDataEntry: React.FC<LogicalDataEntryProps> = (props) => {
                     checkedClassName='btn-outline-dark active'
                     uncheckedClassName='btn-outline-dark'
                     onChange={handleValueChange}
-                >Yes</ToggleButton>
+                >{t("yes")}</ToggleButton>
                 <ToggleButton
                     value="false"
                     checked={props.value === false}
@@ -98,7 +100,7 @@ export const LogicalDataEntry: React.FC<LogicalDataEntryProps> = (props) => {
                     checkedClassName='btn-outline-dark active'
                     uncheckedClassName='btn-outline-dark'
                     onChange={handleValueChange}
-                >No</ToggleButton>
+                >{t("no")}</ToggleButton>
             </div>
                 {
                     !isDisabled && props.value != null &&
@@ -109,6 +111,7 @@ export const LogicalDataEntry: React.FC<LogicalDataEntryProps> = (props) => {
 };
 
 export const LogicalDataEntryYesOnly: React.FC<LogicalDataEntryProps> = (props) => {
+
     function handleValueChange(e: React.ChangeEvent<HTMLInputElement>) {
         props.onChange?.(props.slug, e.target.value === 'true');
     }
@@ -152,7 +155,7 @@ export const LogicalDataEntryYesOnlyWithExplanation: React.FC<LogicalDataEntryPr
     }
 
     const isDisabled = props.mode === 'view' || props.disabled;
-
+    
     return (
         <>
             <DataTitleCopyable
