@@ -1,7 +1,5 @@
 # Setting Up A Production Environment
 
-#### Note
-This guide assumes you are working with the ['colouring-core'](https://github.com/colouring-cities/colouring-core) repository. If you are creating your own fork, or want to use a custom city name, then you may wish to change `'colouring-core'` to `'colouring-[your city name]'`.
 
 #### Preliminaries
 
@@ -44,13 +42,13 @@ Install Nginx
 `sudo apt install nginx`
 
 
-Clone the remote Colouring Cities GitHub repository into `/var/www`
+Clone the remote Colouring Indonesia GitHub repository into `/var/www`
 
 `cd /var/www`
 
-`sudo git clone https://github.com/colouring-cities/colouring-core.git`
+`sudo git clone https://github.com/colouring-Indonesia/colouring-Indonesia.git`
 
-Create a system user (`nodeapp`) to `chown` the `colouring-core` directory
+Create a system user (`nodeapp`) to `chown` the `colouring-Indonesia` directory
 
 `useradd -r -s /bin/nologin nodeapp`
 
@@ -58,13 +56,13 @@ Add the current user to the `nodeapp` group
 
 `sudo usermod -a -G nodeapp <your_ubuntu_username>`
 
-Make the `nodeapp` user/group `chown` the `colouring-core` directory and its subdirectories
+Make the `nodeapp` user/group `chown` the `colouring-Indonesia` directory and its subdirectories
 
-`sudo chown -R nodeapp:nodeapp /var/www/colouring-core`
+`sudo chown -R nodeapp:nodeapp /var/www/colouring-Indonesia`
 
-Now set appropriate permissions on the `colouring-core` directory
+Now set appropriate permissions on the `colouring-Indonesia` directory
 
-`sudo chmod -R 775 /var/www/colouring-core`
+`sudo chmod -R 775 /var/www/colouring-Indonesia`
 
 
 ***
@@ -123,7 +121,7 @@ Now upgrade the `npm` package manager to the most recent release with global pri
 
 Now install the required Node packages as designated in `package.json`
 
-`cd /var/www/colouring-core/app && npm install`
+`cd /var/www/colouring-Indonesia/app && npm install`
 
 
 ***
@@ -154,20 +152,20 @@ Create a distinct Postgres user
 `sudo -u postgres psql -c "SELECT 1 FROM pg_user WHERE usename = '<postgres_username>';" | grep -q 1 || sudo -u postgres psql -c "CREATE ROLE <postgres_username> SUPERUSER LOGIN PASSWORD '<postgres_password>';"`
 
 
-Create default colouring cities database
+Create default colouring Indonesia database
 
-`sudo -u postgres psql -c "SELECT 1 FROM pg_database WHERE datname = 'colouringcitiesdb';" | grep -q 1 || sudo -u postgres createdb -E UTF8 -T template0 --locale=en_US.utf8 -O <postgres_username> colouringcitiesdb`
+`sudo -u postgres psql -c "SELECT 1 FROM pg_database WHERE datname = 'colouringIndonesiadb';" | grep -q 1 || sudo -u postgres createdb -E UTF8 -T template0 --locale=en_US.utf8 -O <postgres_username> colouringIndonesiadb`
 
-`psql -d colouringcitiesdb -U <postgres_username> -c "create extension postgis;"`
+`psql -d colouringIndonesiadb -U <postgres_username> -c "create extension postgis;"`
 
-`psql -d colouringcitiesdb -U <postgres_username> -c "create extension pgcrypto;"`
+`psql -d colouringIndonesiadb -U <postgres_username> -c "create extension pgcrypto;"`
 
-`psql -d colouringcitiesdb -U <postgres_username> -c "create extension pg_trgm;"`
+`psql -d colouringIndonesiadb -U <postgres_username> -c "create extension pg_trgm;"`
 
 
-Import data from the most recent colouring cities database dump
+Import data from the most recent colouring Indonesia database dump
 
-`pg_restore --no-privileges --no-owner --username "<postgres_username>" --dbname "colouringcitiesdb" --clean "<path/to/database/dump/file>"`
+`pg_restore --no-privileges --no-owner --username "<postgres_username>" --dbname "colouringIndonesiadb" --clean "<path/to/database/dump/file>"`
 
 
 ***
@@ -198,7 +196,7 @@ Now edit `sites-available/default` to create a minimal Nginx configuration to te
 	server {
 	    listen 80 default_server;
 	    listen [::]:80 default_server;
-	    server_name colouring-core;
+	    server_name colouring-Indonesia;
 	    
 	    location / {
                 proxy_pass http://localhost:3000/;
@@ -222,19 +220,19 @@ If all is well, restart Nginx
 
 Test out the configuration
 
-`cd /var/www/colouring-core/app`
+`cd /var/www/colouring-Indonesia/app`
 
 
 `npm run build`
 
 
-`PGPASSWORD=<postgres_password> PGDATABASE=colouringcitiesdb PGUSER=<postgres_username> PGHOST=localhost PGPORT=5432 APP_COOKIE_SECRET=<secret> npm run start:prod`
+`PGPASSWORD=<postgres_password> PGDATABASE=colouringIndonesiadb PGUSER=<postgres_username> PGHOST=localhost PGPORT=5432 APP_COOKIE_SECRET=<secret> npm run start:prod`
 
 Now open a browser window on a client machine and navigate to the IP Address of your VM
 
 `http://<ip_address_of_vm>`
 
-You should see the Colouring Cities homepage.
+You should see the Colouring Indonesia homepage.
 
 
 ***
@@ -257,7 +255,7 @@ Perform a global install of PM2
 
 Create an `ecosystem.config.js` file from the template file
 
-`cd /var/www/colouring-core`
+`cd /var/www/colouring-Indonesia`
 
 `nano ecosystem.config.template.js`
 
@@ -270,18 +268,18 @@ Create an `ecosystem.config.js` file from the template file
 	module.exports = {
 	    apps: [
 	        {
-	            name: "colouringcities",
+	            name: "colouringIndonesia",
 	            script: "./app/build/server.js",
 	            instances: 6,
 	            env: {
 	                NODE_ENV: "production",
 	                PGHOST: "localhost",
 	                PGPORT: 5432,
-	                PGDATABASE: "colouringcitiesdb",
+	                PGDATABASE: "colouringIndonesiadb",
 	                PGUSER: "<postgres_username>",
 	                PGPASSWORD: "<postgres_password>",
 	                APP_COOKIE_SECRET: "<longrandomsecret>",
-	                TILECACHE_PATH: "/var/www/colouring-core/app/tilecache"
+	                TILECACHE_PATH: "/var/www/colouring-Indonesia/app/tilecache"
 	            }
 	        }
 	    ]
@@ -290,9 +288,9 @@ Create an `ecosystem.config.js` file from the template file
 Edit the above file as appropriate and save as `ecosystem.config.js`
 
 
-Start the colouring-core app
+Start the colouring-Indonesia app
 
-`cd /var/www/colouring-core`
+`cd /var/www/colouring-Indonesia`
 
 `pm2 start ecosystem.config.js`
 
@@ -300,9 +298,9 @@ Open a browser window on a client machine and navigate to the IP Address of your
 
 `http://<ip_address_of_vm>`
 
-You should see the Colouring Cities homepage.
+You should see the Colouring Indonesia homepage.
 
-To stop the colouring-core app type:
+To stop the colouring-Indonesia app type:
 
 `pm2 stop ecosystem.config.js`
 
@@ -313,14 +311,14 @@ To stop the colouring-core app type:
 
 Install requirements for the maintenance Python scripts
 
-`cd /var/www/colouring-core/maintenance`
+`cd /var/www/colouring-Indonesia/maintenance`
 
 `sudo pip3 install -r requirements.txt`
 
 The maintenance scripts might need environment variables present at the time of execution, notably the database connection details.
 If running the scripts manually, the variables can be provided just before execution, for example
 
-`PGHOST=localhost PGPORT=5432 PGDATABASE=dbname PGUSER=username PGPASSWORD=secretpassword EXTRACTS_DIRECTORY=/var/www/colouring-core/downloads python3 maintenance/extract_data/extract_data.py`
+`PGHOST=localhost PGPORT=5432 PGDATABASE=dbname PGUSER=username PGPASSWORD=secretpassword EXTRACTS_DIRECTORY=/var/www/colouring-Indonesia/downloads python3 maintenance/extract_data/extract_data.py`
 
 If the maintenance script is to be run on a schedule, the variables should be loaded before running the script, for example from a `.env` file.
 
