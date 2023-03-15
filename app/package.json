@@ -1,5 +1,5 @@
 {
-  "name": "colouring-london-app",
+  "name": "colouring-Indonesia-app",
   "version": "1.0.0",
   "description": "Render frontend (server- and client-side)",
   "private": true,
@@ -27,6 +27,7 @@
     "express": "^4.18.2",
     "express-session": "^1.17.1",
     "geojson": "^0.5.0",
+    "i18next": "^21.8.13",
     "leaflet": "^1.7.1",
     "lodash": "^4.17.21",
     "mapnik": "^4.5.9",
@@ -68,6 +69,7 @@
     "eslint-plugin-jest": "^24.3.5",
     "eslint-plugin-react": "^7.23.2",
     "html-webpack-plugin": "^4.5.2",
+    "react-i18next": "^11.18.0",	
     "mini-css-extract-plugin": "^0.12.0",
     "postcss": "^8.2.4",
     "razzle": "^4.0.4",
