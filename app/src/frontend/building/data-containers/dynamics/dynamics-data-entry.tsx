@@ -12,6 +12,7 @@ import { NumberRangeDataEntry } from '../../data-components/number-range-data-en
 import './dynamics-data-entry.css';
 import { CloseIcon } from '../../../components/icons';
 import DataTitle, { DataTitleCopyable } from '../../data-components/data-title';
+import i18next from "i18next";
 
 type DemolishedBuilding = (BuildingAttributes['demolished_buildings'][number]);
 
@@ -69,6 +70,19 @@ const DynamicsDataRow: React.FC<DynamicsDataRowProps> = ({
     const maxLifespan = lifespan(value.year_demolished?.max, value.year_constructed?.min);
     const minLifespan = lifespan(value.year_demolished?.min, value.year_constructed?.max);
 
+   let demolished_buildings_items_year_constructed_title = dataFields.demolished_buildings.items.year_constructed.title_en;
+   let demolished_buildings_items_year_demolished_title = dataFields.demolished_buildings.items.year_demolished.title_en;
+   let demolished_buildings_items_overlap_present_title = dataFields.demolished_buildings.items.overlap_present.title_en;
+   let demolished_buildings_items_lifespan_title = dataFields.demolished_buildings.items.lifespan.title_en;
+   let demolished_buildings_items_links_title = dataFields.demolished_buildings.items.links.title_en;
+
+   if (i18next.language === "id") { 
+     demolished_buildings_items_year_constructed_title = dataFields.demolished_buildings.items.year_constructed.title_id;
+     demolished_buildings_items_year_demolished_title = dataFields.demolished_buildings.items.year_demolished.title_id;
+     demolished_buildings_items_overlap_present_title = dataFields.demolished_buildings.items.overlap_present.title_id;
+     demolished_buildings_items_lifespan_title = dataFields.demolished_buildings.items.lifespan.title_id;
+     demolished_buildings_items_links_title = dataFields.demolished_buildings.items.links.title_id;
+   }
     return (
         <>
             <FieldRow>
@@ -76,7 +90,7 @@ const DynamicsDataRow: React.FC<DynamicsDataRowProps> = ({
                     <NumberRangeDataEntry
                         slug='year_constructed'
                         slugModifier={index}
-                        title={dataFields.demolished_buildings.items.year_constructed.title}
+                        title={demolished_buildings_items_year_constructed_title}
                         onChange={onFieldChange}
                         value={value.year_constructed}
                         disabled={disabled}
@@ -84,8 +98,8 @@ const DynamicsDataRow: React.FC<DynamicsDataRowProps> = ({
                         min={minYear}
                         placeholderMin='Earliest'
                         placeholderMax='Latest'
-                        titleMin={`${dataFields.demolished_buildings.items.year_constructed.title}: earliest estimate`}
-                        titleMax={`${dataFields.demolished_buildings.items.year_constructed.title}: latest estimate`}
+                        titleMin={`${demolished_buildings_items_year_constructed_title}: earliest estimate`}
+                        titleMax={`${demolished_buildings_items_year_constructed_title}: latest estimate`}
                         required={required}
                     />
                 </div>
@@ -93,7 +107,7 @@ const DynamicsDataRow: React.FC<DynamicsDataRowProps> = ({
                     <NumberRangeDataEntry
                         slug='year_demolished'
                         slugModifier={index}
-                        title={dataFields.demolished_buildings.items.year_demolished.title}
+                        title={demolished_buildings_items_year_demolished_title}
                         onChange={onFieldChange}
                         value={value.year_demolished}
                         disabled={disabled}
@@ -101,8 +115,8 @@ const DynamicsDataRow: React.FC<DynamicsDataRowProps> = ({
                         min={value.year_constructed?.max ?? minYear}
                         placeholderMin='Earliest'
                         placeholderMax='Latest'
-                        titleMin={`${dataFields.demolished_buildings.items.year_demolished.title}: earliest estimate`}
-                        titleMax={`${dataFields.demolished_buildings.items.year_demolished.title}: latest estimate`}
+                        titleMin={`${demolished_buildings_items_year_demolished_title}: earliest estimate`}
+                        titleMax={`${demolished_buildings_items_year_demolished_title}: latest estimate`}
                         required={required}
                     />
                 </div>
@@ -110,7 +124,7 @@ const DynamicsDataRow: React.FC<DynamicsDataRowProps> = ({
                     <DataEntry
                         slug='lifespan'
                         slugModifier={index}
-                        title={dataFields.demolished_buildings.items.lifespan.title}
+                        title={demolished_buildings_items_lifespan_title}
                         value={formatRange(minLifespan, maxLifespan)}
                         disabled={true}
                     />
@@ -119,7 +133,7 @@ const DynamicsDataRow: React.FC<DynamicsDataRowProps> = ({
             <SelectDataEntry
                 slug='overlap_present'
                 slugModifier={index}
-                title={dataFields.demolished_buildings.items.overlap_present.title}
+                title={demolished_buildings_items_overlap_present_title}
                 onChange={onFieldChange}
                 value={value.overlap_present}
                 options={[
@@ -135,7 +149,7 @@ const DynamicsDataRow: React.FC<DynamicsDataRowProps> = ({
             <MultiDataEntry
                 slug='links'
                 slugModifier={index}
-                title={dataFields.demolished_buildings.items.links.title}
+                title={demolished_buildings_items_links_title}
                 onChange={onFieldChange}
                 value={value.links}
                 disabled={disabled}
