@@ -28,6 +28,11 @@ import { MyAccountPage } from './user/my-account';
 import PasswordReset from './user/password-reset';
 import { SignUp } from './user/signup';
 import { NotFound } from './pages/not-found';
+import AboutBPage  from "./pages/about-page";
+import DataCategories  from "./pages/data-categories";
+import WhoIsEnvolved from "./pages/who-is-envolved";
+import DataEthics from "./pages/data-ethics";
+import Ccrp from "./pages/ccrp";
 
 
 interface AppProps {
@@ -81,6 +86,11 @@ export const App: React.FC<AppProps> = props => {
                     <Route exact path="/code-of-conduct.html" component={CodeOfConductPage} />
                     <Route exact path="/leaderboard.html" component={LeaderboardPage} />
                     <Route exact path="/history.html" component={ChangesPage} />
+                    <Route exact path="/about-page.html" component={AboutBPage} />
+                    <Route exact path="/data-categories.html" component={DataCategories} />
+                    <Route exact path="/who-is-envolved.html" component={WhoIsEnvolved} />
+                    <Route exact path="/data-ethics.html" component={DataEthics} />
+                    <Route exact path="/ccrp.html" component={Ccrp} />
                     <Route exact path={mapAppPaths} >
                         <MapApp
                             building={props.building}
