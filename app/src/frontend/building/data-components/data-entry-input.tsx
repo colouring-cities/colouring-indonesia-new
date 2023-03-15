@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useTranslation } from "react-i18next";
 import { AutofillDropdown } from './autofill-dropdown/autofill-dropdown';
 
 export interface TextDataEntryInputProps {
@@ -26,6 +26,7 @@ export const DataEntryInput: React.FC<TextDataEntryInputProps & {value?: string}
     const [isEditing, setEditing] = useState(false);
     const nameAttr = props.name || props.slug;
     const idAttr = props.id || props.slug;
+    const { i18n } = useTranslation();
 
     const transformValue = (value: string) => {
         const transform = props.valueTransform || (x => x);
@@ -82,6 +83,7 @@ export const DataEntryInput: React.FC<TextDataEntryInputProps & {value?: string}
                     onClose={() => setEditing(false)}
                     fieldName={props.slug}
                     fieldValue={props.value}
+                    language={i18n.language}
                     showAllOptionsOnEmpty={props.showAllOptionsOnEmpty}
                 />
             }
