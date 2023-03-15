@@ -35,21 +35,25 @@ const BuildingView: React.FunctionComponent<BuildingViewProps> = (props) => {
     }
 
     const {
-        name,
+        name_id,
+        name_en,
         aboutUrl,
-        intro,
+        intro_id,
+        intro_en,
         inactive = false
     } = categoryConfig;
 
     return <DataContainer
-        {...props}
-        title={name}
-        help={aboutUrl}
-        intro={intro}
-        inactive={inactive}
-        user={user}
-        mapColourScale={props.mapColourScale}
-        onMapColourScale={props.onMapColourScale}
+    {...props}
+    title_id={name_id}
+    title_en={name_en}
+    help={aboutUrl}
+    intro_id={intro_id}
+    intro_en={intro_en}
+    inactive={inactive}
+    user={user}
+    mapColourScale={props.mapColourScale}
+    onMapColourScale={props.onMapColourScale}   
     />; 
 };
 
