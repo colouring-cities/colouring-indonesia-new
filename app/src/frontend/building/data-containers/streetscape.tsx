@@ -23,14 +23,14 @@ const StreetscapeView: React.FunctionComponent<CategoryViewProps> = (props) => (
             <li>Building shading</li>
         </ul>
         <NumericDataEntry
-            title={dataFields.size_plot_area_total.title}
+            title={dataFields.size_plot_area_total.title_en}
             slug="size_plot_area_total"
             mode='view'
             step={0.1}
             min={0}
         />
         <NumericDataEntry
-            title={dataFields.size_far_ratio.title}
+            title={dataFields.size_far_ratio.title_en}
             slug="size_far_ratio"
             mode='view'
             step={0.1}
@@ -65,7 +65,7 @@ const StreetscapeView: React.FunctionComponent<CategoryViewProps> = (props) => (
             slug=""
             value=""
             mode='view'
-        />
+            />
         <DataEntry
             title="Street network geometry link"
             slug=""
