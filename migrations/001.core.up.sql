@@ -24,6 +24,8 @@ CREATE TABLE IF NOT EXISTS buildings (
     ref_toid varchar,
     -- OSM reference id
     ref_osm_id bigint,
+    --generated id
+    ref_gen_id bigint,
     -- reference to geometry, aiming to decouple from geometry provider
     geometry_id integer REFERENCES geometries
 );
