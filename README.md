@@ -42,11 +42,9 @@ _Last updated December 2021_
 
 ## Acknowledgements
 
-Colouring Indonesia was set up at the Centre for Advanced Spatial
-Analysis (CASA), University College Indonesia and is now based at The Alan Turing Institute.
-Ordnance Survey is providing building footprints required to collect the data,
-facilitated by the Greater Indonesia Authority (GLA), and giving access to its API
-and technical support.
+Colouring Indonesia was set up as a part of The Colouring Cities Research Programme at The Alan Turing Institute through a collaborative effort between King's College London and Institut Teknologi Bandung. 
+Jakarta Satu is providing building footprints required to collect the data,
+facilitated by the Pemprov DKI Jakarta.
 
 ## License
 
